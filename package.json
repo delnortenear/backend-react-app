@@ -1,0 +1,24 @@
+{
+  "name": "festive-tickets-app",
+  "version": "1.0.0",
+  "description": "### Overview  An end-to-end blockchain based platform for festival ticket booking and ticket reselling between trustless parties. This will help to eliminate the current issue with the fake tickets and uncontrolled resale price for the tickets in black market. The platform is build on public Ethereum blockchain network where ERC721 tokens represent festival tickets and these tickets can be purchased using a platform based ERC20 token called FEST.",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ashlesh Sortee",
+  "license": "ISC",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^3.4.0",
+    "truffle-plugin-verify": "^0.5.28"
+  },
+  "keywords": [],
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.14",
+    "dotenv": "^16.0.2",
+    "truffle-contract-size": "^2.0.1"
+  }
+}
