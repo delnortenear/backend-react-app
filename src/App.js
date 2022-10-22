@@ -12,6 +12,7 @@ import SecondaryMarket from './components/SecondaryMarket';
 import Stampx from './components/Stampx';
 import Mint from './components/Mint';
 import Stampcheck from './components/Stampcheck';
+import Home from './components/Home';
 
 
 function App() {
@@ -73,10 +74,10 @@ console.log(currentAccount);
 
 return (
   <Router>
-        <div className="App gradient-bg-welcome">
+  <div className="App gradient-bg-welcome2"> 
           <nav>
             <div class="nav-wrapper">
-              <a href="/buyTickets" class="brand-logo left"><img id="logox" height="40px" src="https://delnorte.space/images/logo.svg"/> </a>
+              <a href="/" class="brand-logo left"><img id="logox" height="40px" src="https://delnorte.space/images/logo.svg"/> </a>
               <ul class="right hide-on-med-and-down 10" >
                 <div>
                   <li> <Link to="/stampx"><b>Stamp Mint</b></Link> </li>
@@ -114,6 +115,8 @@ return (
             <Route path="/stampx" component={Stampx}/>
             <Route path="/stampcheck" component={Stampcheck}/>
             <Route path="/mint" component={Mint}/>
+            <Route path="/" component={Home}/>
+
           </Switch>
         </div>
       </Router>
