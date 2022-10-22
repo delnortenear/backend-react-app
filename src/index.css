@@ -6,13 +6,51 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.mxhome {max-width: 100% !important;}
 .pad-lh {
       padding: 10px;
     border: 1px solid #bbb7b7ee;
 }
+.proof-text {font-size: 20px;font-weight: bolder;}
+.btx-fnft {
+  margin-top: 40px;
+}
+
 .form-gh {
   width: 800px;
 }
+.section1 {float: left;}
+.section3 {float: left;background:white;}
+.section2 {float: left;background: #f0f0f0;}
+.section4 {float: left;background: #1667b6;}
+
+.home-head-btn {float: left;margin-top: 50px}
+.home-head-btn2 {float: left;margin-top: 15px}
+
+.home-head-btn2 a {margin-left: 15px; float: left;}
+.home-head-btn a {margin-left: 15px; cursor: pointer;}
+
+.cx {margin-left: 0px !important;}
+.home-hd {margin-top: 40px !important;max-width: 100% !important;}
+.lf-home {width: 57%;float: left; padding-left: 50px;}
+
+.lf-home2y {width: 8%;
+float: left;
+padding-left: 50px;
+border-top: 0px solid gray;}
+.fright {width: 40%;float: left; padding-left: 50px;}
+
+.lf-home2 {width: 40%;float: left; padding-left: 50px;border-top: 0px solid gray;}
+.lf-home2x {width: 40%;float: left; padding-left: 50px;border-top: 0px solid gray;}
+
+.fright2 {width: 60%;float: left; padding-left: 50px;border-top: 1px solid gray;}
+
+.fright2x img {height: 270px;
+margin-top: 17px;
+margin-left: 140px;}
+
+.home5t {font-size: 20px !important;}
 .stat-box {
 background-color: #fafafa;
 background-image: radial-gradient(at 0% 0%, hsl(253deg 53% 99%) 0, transparent 50%), radial-gradient(at 90% 70%, hsl(225deg 1% 60%) 0, transparent 50%), radial-gradient(at 100% 0%, hsl(35deg 88% 79%) 0, transparent 50%);
@@ -29,6 +67,7 @@ background-image: radial-gradient(at 0% 0%, hsl(253deg 53% 99%) 0, transparent 5
 position: absolute;
 
 }
+.sc-htext {margin-top: 40px;}
 .pad-th {
       padding: 10px;
       font-weight: bolder;
@@ -54,6 +93,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.sc-lgtitle {margin-top: 10px;}
 .btncode {
   padding-top: 23px;
 }
@@ -67,6 +108,9 @@ code {
 .stamp-text {
  font-size: 20px;
 }
+.stamp-text a {
+  text-transform: uppercase;
+  }
 .dvright {
   height: 262px;margin-top: 14px;margin-left: 42px;
 }
@@ -113,23 +157,116 @@ width: 220px;
       top: 2px;
     }
   }
+.fright5x img {height: 235px;}
+.fleft-home {float: left;
+font-size: 20px;
+margin-bottom: 20px;}
+
+.fleft-home2 {float: left;
+font-size: 20px;
+margin-bottom: 20px;
+margin-top: 13px;
+}
+
+.fleft-home2x {float: left;
+font-size: 20px;
+margin-bottom: 20px;
+margin-top: 13px;
+}
+
+.fnft-f {
+  display: flex;
+  float: left;
+}
+.fnft-f li {
+  float: left;
+  font-weight: bolder;
+}
+
+.clipboard2 {
+    border: 0;
+    padding: 15px;
+    border-radius: 57px;
+    background-image: linear-gradient( 135deg, #A3C0C1 10%, #D4E1E2 100%);
+    cursor: pointer;
+    color: #04048c;
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    position: relative;
+    top: 0;
+    transition: all .2s ease;
+    &:hover {
+      top: 2px;
+    }
+  }
+  
 #logox {margin-top: 10px;max-width: 70% !important;}
 .stamp {
 width: 520px;
 text-align: left;
 }
+.empty-space {    background-color: white;
+    height: 100%;}
+.pinfo label {font-size: 15px !important;}
+.doctext {font-weight: bolder;margin-top: 45px;}
+.docicons img { height: 50px; float: left; padding-right: 10px;margin-top: 5px;}
 .impos { height: 315px;}
+.imposx { height: 315px;width: 50%;}
+.imposxx {width: 100%;height: 510px;display: flex;}
+.imposxx .pinfo {padding-top: 20px;}
+.render-left {width: 60%;padding-left: 10px;}
+.render-right {width: 40%;}
+.cv-line {border-bottom: 1px solid;}
+.render-right li {text-align: left; padding-left: 10px;line-height: 30px; border-bottom: 1px #c2bdbd;}
 .dstamp {    
 text-align: left;
 height: 315px;
 background-color: #f9d6a5;
 padding: 15px;
   }
+.cv-price {
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: bolder;
+}
+.cv-price span {float: right; padding-right: 15px;}
+.dstamp-mint {    
+text-align: left;
+height: 315px;
+background-color: #f3f3f3;
+padding: 15px;
+  }
 
 .stamp label {
  width: 170px; 
 }
-.pdd-30 {margin-left: 30px;}
+.mint-render-line {
+  line-height: 30px;
+  padding-top: 2px;
+}
+.render_plan {width: 250px;margin-left: 1p% !important;}
+.mint-render-line .st-owner {    width: 65%;
+    padding-left: 24px;
+    color: #444!important;
+    text-transform: uppercase;
+    text-align: left;}
+
+.mint-render-line .st-owner a {      text-transform: uppercase;
+  color: #444 !important;
+    font-size: 12px !important;
+    font-weight: bolder;}
+.mint-render-line .st-name {  
+background-color: #414541;
+    width: 65%;
+    height: 30px;
+    padding-bottom: 0px;
+    padding-left: 25px;
+    font-size: 20px !important;
+    color: white !important;
+    text-align: left;
+    }
+
+.pdd-30 {margin-left: 30px;margin-right: 10px;}
 .bi-box {margin: 3px;}
 .stamp #nftdigital {
 width: 360px;
@@ -138,19 +275,29 @@ width: 360px;
   margin: 0px;
 }
 .st-image img {
-  height: 310px;
-    margin-left: 35%;
+  height: 305px;
+margin-left: 8%;
+border-radius: 7px;
 }
 .nftcontainer {height: 1090px;}
+.nftcontainer2 {height: 1450px;}
+
 .st-container {padding-left: 25px;}
 .st-name {padding-left: 25px;}
 .st-owner {padding-left: 25px; font-size: 13px;}
 .st-owner a {color: blue;}
 .nftrow {height: 795px;width: 545px !important; background-color: aliceblue;}
+.nftrow2 {height: 100%;width: 100% !important; background-color: #e3e4e6;}
+
 .rectx {border: 1px solid #888;
     border-radius: 9px;
     font-size: 15px;
     padding-top: 20px}
+
+ .rect-mint {border: 0px solid #888;
+    border-radius: 9px;
+    font-size: 15px;
+    padding-top: 15px}
 .lgtitle {text-align: left;}
 .ccontainer {
   display: flex;
@@ -227,7 +374,7 @@ width: 360px;
 .inputx {
   font-weight: bold;
   text-align: left !important;
-  width: 480px !important;
+  width: 898px !important;
   position: relative; 
   cursor: text;
   font-size: 14px;
