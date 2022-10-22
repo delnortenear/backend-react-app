@@ -4,6 +4,7 @@ import renderNotification from '../utils/notification-handler';
 import FileUploadComponent, { endpoint_val } from '../components/fileUpload.component';
 import QRCode from 'react-qr-code';
 import ReactFlagsSelect from "react-flags-select";
+import base64 from 'react-native-base64';
 
 let web3;
 //const HDWalletProvider = require("@truffle/hdwallet-provider");
@@ -20,12 +21,12 @@ class Stampx extends Component {
   }
 
    state = {
-    stamp: '',
+    stamp: 'X0XXJJSSCCNNMMLL',
     value:'',
     cntx:'',
     code:'US',
     dtx:Date.now(),
-    category:"ART"
+    category:"Property"
   }
 
 
@@ -34,10 +35,11 @@ class Stampx extends Component {
   onCreateStamp = async (e) => {
     try {
       e.preventDefault();
+            const encode_str = this.state.dtx+this.state.owner+this.state.encode_str;
+            const stamp_encode = 'P0'+base64.encode(encode_str);
+            this.setState({stamp: stamp_encode.substring("0","16")});
+            console.log(encode_str);
 
-            this.setState({stamp: 'X0XXXXXXXXXXXXXX'});
-
-            //console.log(this.state);
 
   console.log('aGpoO2g7dWh1aDg5Nzg3ODk3ODc4Nw==');
      // renderNotification('success', 'Success', `Stamp  Minted Successfully!`);
@@ -149,9 +151,9 @@ inputChangedHandler = (e) => {
                 <p><label class="left"><b>Category</b></label></p>
                 <select className="browser-default" name='category' value={this.state.category || undefined} onChange={this.selectHandler}>
                   <option value="">Select Category</option>
-                  <option value="ART">ART</option>
-                  <option value="Music">Music</option>
                   <option value="Property">Property</option>
+                  <option value="Music">Music</option>
+                  <option value="ART">ART</option>
                   <option value="Metaverse">Mertaverse</option>
                   <option value="Real Assets">Real Assets</option>
                 </select>   <br /><br />
@@ -182,7 +184,7 @@ inputChangedHandler = (e) => {
             <p class="left st-owner shadowx">Owner: <a href="https://etherscan.io/address/{this.state.owner}">{this.state.owner}</a></p><br/>
             <div class="impos">
             <p class="left st-image justify-center items-center center"><br/>
-            <img class="justify-center items-center center shadow" src="https://img.seadn.io/files/9a6b949cb32ade3ebf4b9c20417dc2c8.png?auto=format&fit=max&w=640"/>
+            <img class="shadow justify-center items-center center shadow" src="https://i.seadn.io/gae/2hWLWS28ZfWRM3Aj5P7qb7iCTO9T2C3BFFih8s-4w5eEQb_oFs0I9_qiouauiJj9gDV-pKma8pzcL8qG_g7dvLL7RqH9s5o5LaF22TA?auto=format&w=1000" />
             </p>
             </div><br/>
 <p>
@@ -190,7 +192,7 @@ inputChangedHandler = (e) => {
 <ul class="ulbox"><li class="fleft lileft">
 <div class="fleft dsleft">
 <div class="stamp-preview">
-STAMP CODE: <b class="stamp-text"><a target="_blank" href="/stamp-check/X0XXXXXXXXXXXXXX">X0XXXXXXXXXXXXXX</a></b><br/>
+STAMP CODE: <b class="stamp-text"><a target="_blank" href="/stamp-check/X0XXXXXXXXXXXXXX">{this.state.stamp}</a></b><br/>
 TIMESTAMP: <b>{this.state.dtx}</b><br/>
 </div>
 {this.state.stamp && (
