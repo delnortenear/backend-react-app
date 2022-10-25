@@ -118,6 +118,14 @@ code {
   height: 258px;margin-top: 68px;
 }
 .btncopy {margin-top: 20px;}
+.btncopyx {
+  height: 35px !important;
+    font-size: 15px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px;
+}
 .jsblock {
 text-align: left;
 float: left;
@@ -237,8 +245,10 @@ background-color: #f3f3f3;
 padding: 15px;
   }
 
+.prop-section { border: 1px solid gray; padding: 5px; width: 100%; text-align: left; background-color: #f3f3f3; }
+
 .stamp label {
- width: 170px; 
+ width: 100%; 
 }
 .mint-render-line {
   line-height: 30px;
@@ -266,7 +276,7 @@ background-color: #414541;
     text-align: left;
     }
 
-.pdd-30 {margin-left: 30px;margin-right: 10px;}
+.pdd-30 {margin-left: 30px;margin-right: 50px;}
 .bi-box {margin: 3px;}
 .stamp #nftdigital {
 width: 360px;
@@ -280,14 +290,14 @@ margin-left: 8%;
 border-radius: 7px;
 }
 .nftcontainer {height: 1090px;}
-.nftcontainer2 {height: 1450px;}
+.nftcontainer2 {height: 2450px;}
 
 .st-container {padding-left: 25px;}
 .st-name {padding-left: 25px;}
 .st-owner {padding-left: 25px; font-size: 13px;}
 .st-owner a {color: blue;}
 .nftrow {height: 795px;width: 545px !important; background-color: aliceblue;}
-.nftrow2 {height: 100%;width: 100% !important; background-color: #e3e4e6;}
+.nftrow2 {height: 100%;width: 100% !important; background-color: #f7f7f7;}
 
 .rectx {border: 1px solid #888;
     border-radius: 9px;
@@ -299,6 +309,11 @@ border-radius: 7px;
     font-size: 15px;
     padding-top: 15px}
 .lgtitle {text-align: left;}
+
+.lgtitle-prop {font-weight: bold;
+font-size: 18px;}
+
+
 .ccontainer {
   display: flex;
   overflow: scroll;
@@ -374,7 +389,7 @@ border-radius: 7px;
 .inputx {
   font-weight: bold;
   text-align: left !important;
-  width: 898px !important;
+  width: 88% !important;
   position: relative; 
   cursor: text;
   font-size: 14px;
