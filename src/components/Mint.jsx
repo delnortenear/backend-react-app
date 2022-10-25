@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Web3 from 'web3';
 import renderNotification from '../utils/notification-handler';
 import FileUploadComponent, { endpoint_val } from '../components/fileUpload.component';
 import QRCode from 'react-qr-code';
@@ -7,11 +6,14 @@ import ReactFlagsSelect from "react-flags-select";
 import base64 from 'react-native-base64';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import { ethers } from "ethers";
+import abi from '../utils/abi2/contracts/SmartCertificate.json';
+import { ProgressBar } from  'react-loader-spinner'
 
-let web3;
 
 
-
+const contractAddress = "0x375824c40f0d1ddb59783581be67929b95448b79";
+const contractABI = abi.abi;
 
 //const HDWalletProvider = require("@truffle/hdwallet-provider");
 //const mnemonic ="friend whip cloth train trial there token auction convince capable link couch"; //"pass vital mad start beauty lonely feed able maid permit retire fire";
@@ -33,22 +35,51 @@ class Mint extends Component {
     cntx:'',
     code:'US',
     dtx:Date.now(),
-    category:"Property"
+    category:"Property",
+    pbar:false,
+    ptx:false,
+    ptxurl:''
   }
 
 
 
   onCreateStamp = async (e) => {
     try {
-      e.preventDefault();
-            const encode_str = this.state.dtx+this.state.owner+this.state.encode_str;
-            const stamp_encode = 'P0'+base64.encode(encode_str);
-            this.setState({stamp: stamp_encode.substring("0","16")});
-            console.log(encode_str);
 
+this.setState({pbar: true})
+const contractAddress = "0x375824c40f0d1ddb59783581be67929b95448b79";
+const contractABI = abi.abi;
+console.log(contractAddress);
+        const {ethereum} = window;
+        const provider = new ethers.providers.Web3Provider(ethereum, "any");
+        const signer = provider.getSigner();
+        const mintProperty = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer
+        );
 
-  console.log('aGpoO2g7dWh1aDg5Nzg3ODk3ODc4Nw==');
-     // renderNotification('success', 'Success', `Stamp  Minted Successfully!`);
+        console.log("minting property..")
+      //  renderNotification('danger', 'Success', 'minting property..');
+
+        const propertyTxn = await mintProperty.claimItem('https://ipfs.io/ipfs/QmNRRtBmnWq1Ld1yVuLENQWYtvSzouoP5WKrXqYwuRPKPx');
+
+    //    const propertyTxn = await mintProperty.claimItem('https://ipfs.io/ipfs/QmVPuch5Whu4TL6bLg6Zb15mtJLDDsd3W32oy2rsXW3mSP');
+      
+        //await propertyTxn.wait();
+                console.log("mined ", propertyTxn.hash);
+
+        console.log("minting.. ", await propertyTxn.wait());
+
+        console.log("mined ", propertyTxn.hash);
+                this.setState({ptx: propertyTxn.hash})
+                this.setState({ptxurl: "https://goerli.etherscan.io/tx/"+propertyTxn.hash})
+
+                
+
+        this.setState({pbar: false})
+
+        console.log("Property minted!");
 
     } catch (err) {
       console.log('Error while creating new stamp', err);
@@ -127,15 +158,47 @@ inputChangedHandler = (e) => {
           <div class="container ">
             <div class="container ">
               <h5  class="text-3xl sm:text-4xl text-black py-1 text-left" style={{ padding: "45px 0px 40px 0px" }}><b>Smart Certificate (NFT) Wizard</b></h5>
-              <form class="" onSubmit={this.onCreateStamp}>
+            
+<b class="prop-section flleft">Certificate Info</b><br />
+              
                 <label class="left">Title</label><input id="name" class="validate" placeholder="Title" type="text" class="validate" name="name" onChange={this.inputChangedHandler} /><br /><br />
                 <label class="left">Description</label><input id="name" class="validate" placeholder="Description" type="text" class="validate" name="name" onChange={this.inputChangedHandler} /><br /><br />
+ <label class="left">Blockchain (on wich blockchain you want to mint)</label>
+                <select className="browser-default" name='category' value={this.state.category || undefined} onChange={this.selectHandler}>
+                  <option value="ethereum">ETHEREUM</option>
+                  <option value="near">NEAR</option>
+                  <option value="Polygon">Polygon</option>
+                  <option value="bsc">Binance Chain</option>
+                </select>   
+
+                <br />
+             <b class="prop-section flleft">Ownership Management Info</b>
+
                 <label class="left">Owner (address: 0x6EA4bB...4b1Bb6)</label><input id="owner" class="validate" placeholder="0x.." type="text" className="input-control" name="owner" onChange={this.inputChangedHandler} /><br /><br />
-                <label class="left">Address (postcode, city)</label><input id="name" class="validate" placeholder="Address" type="text" class="validate" name="name" onChange={this.inputChangedHandler} /><br /><br />
-                <label class="left">SQ</label><input id="name" class="validate" placeholder="Address" type="text" class="validate" name="name" onChange={this.inputChangedHandler} /><br /><br />
-                <label class="left">Secret word (1-2 words)</label><input id="secret" class="validate" placeholder="Lorem ipsum..." type="text" className="input-control" name="secret" onChange={this.inputChangedHandler} /><br /><br />
+                <label class="left">Creator/NFT site url - define a link to your own webpage with more details</label><input id="site_link" class="validate" placeholder="https://example.com" type="text" class="validate" name="name" onChange={this.inputChangedHandler} /><br /><br />
                 <label class="left">Creator info / Additional info <i>(optional)</i></label><input id="crinfo" class="validate" placeholder="Lorem ipsum..." type="text" className="input-control" name="crinfo" onChange={this.inputChangedHandler} /><br />
-<br />
+        <br />
+             <b class="prop-section flleft">Security Info</b>
+             <label class="left">Number of Registration</label><input id="name" class="validate" placeholder="Deed Number" type="text" class="validate" name="name" onChange={this.inputChangedHandler} /><br /><br />
+             <label class="left">Lockable Content</label><textarea maxlength="2000" class="textarea p-big-90" placeholder="access key, codes, link to a file, etc.)" name="description"></textarea><br /><br />
+             <div class="stamp"><label class="left active">Delnorte Digital Stamp (Optional)</label><input disabled id="nftdigital" value={this.state.stamp} onChange={this.inputChangedHandler} placeholder="A0.." type="text" class="input-control" name="stamp"/>
+
+            <label class="left active">Secret Code (to decode Deed Number)</label><input id="secretcode" onChange={this.inputChangedHandler} placeholder="***" type="password" class="input-control" name="secretcode"/>
+
+
+              <b class="prop-section flleft">Propertyt Info</b><br/><br/>
+
+              <p><label class="left"><b>Property Type</b></label></p>
+                <select className="browser-default" name='category' value={this.state.category || undefined} onChange={this.selectHandler}>
+                  <option value="Apartment">Apartment</option>
+                  <option value="Building">Building</option>
+                  <option value="Office">Office</option>
+                  <option value="House">House</option>
+                  <option value="Warehouse">Warehouse</option>
+                  <option value="Сommercial premises">Сommercial premises</option>
+                </select>   <br />
+       <label class="left">Address (postcode, city)</label><input id="address" class="validate" placeholder="Address" type="text" class="validate" name="name" onChange={this.inputChangedHandler} /><br /><br />         
+       <label class="left">Original Price</label><input id="price" class="validate" placeholder="Price" type="text" class="validate" name="name" onChange={this.inputChangedHandler} /><br /><br />
 <label class="left">Country code <i>(optional)</i></label>
 <ReactFlagsSelect
         selected={this.state.code}
@@ -153,30 +216,53 @@ inputChangedHandler = (e) => {
         disabled={disabled} */
       />
       <br/>
-                <label class="left text-blacker">METADATA File - IPFS url <i>(optional)</i></label><input id="ipfsuri" class="validate" placeholder="QmaSZtLEUG6trc78PzWxHYp..." type="text" className="input-control" name="ipfsuri" onChange={this.inputChangedHandler} />
+    <label class="left text-blacker">METADATA File - IPFS url <i>(optional)</i></label><input id="ipfsuri" class="validate" placeholder="QmaSZtLEUG6trc78PzWxHYp..." type="text" className="input-control" name="ipfsuri" onChange={this.inputChangedHandler} />
 <button class="left bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={this.handleClick}>Fetch data from IPFS</button>                <br/><br/>
 <br/><br/>
                 <label class="left">Upload files (.pdf, .svg, .png, .jpg)</label>
-                <div><div className="stampc App container mt-5"><FileUploadComponent /></div></div><br/><br/>
-                <p><label class="left"><b>Category</b></label></p>
-                <select className="browser-default" name='category' value={this.state.category || undefined} onChange={this.selectHandler}>
-                  <option value="">Select Category</option>
-                  <option value="Property">Property</option>
-                  <option value="Music">Music</option>
-                  <option value="ART">ART</option>
-                  <option value="Metaverse">Mertaverse</option>
-                  <option value="Real Assets">Real Assets</option>
-                </select>   <br /><br />
-                <div class="stamp"><label class="left active">NFT Digital Stamp (Optional)</label><input id="nftdigital" value={this.state.stamp} onChange={this.inputChangedHandler} placeholder="A0.." type="text" class="input-control" name="stamp"/>
-                <br/><br/></div>
-                <p><button type="submit" className="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
-  <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/>
-  <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
-</svg><span>MINT NFT Certificate</span></button></p>
-<br/><br/>
+                <div><div className="stampc App container mt-5"><FileUploadComponent /></div></div><br/>
+                
 
-              </form>
+               <h4 class="lgtitle-prop">Forever Royalties (optional*)</h4><br />
+               <input id="name" value="1%" class="inputx2"/> <input id="name" class="inputx" placeholder=" account / wallet address" type="text"  name="name" onChange={this.inputChangedHandler} /><br />
+               <input id="name" value="1%" class="inputx2"/> <input id="name" class="inputx" placeholder=" account / wallet address" type="text"  name="name" onChange={this.inputChangedHandler} /><br />
+               <input id="name" value="1%" class="inputx2"/> <input id="name" class="inputx" placeholder=" account / wallet address" type="text"  name="name" onChange={this.inputChangedHandler} /><br />
+               <input id="name" value="1%" class="inputx2"/> <input id="name" class="inputx" placeholder=" account / wallet address" type="text"  name="name" onChange={this.inputChangedHandler} /><br />
+  <button class="clipboard btncopyx shadowx">Add Address</button>
+  <br/><br/>
+               <h4 class="lgtitle-prop">Split Revenue</h4><br />
+               <em>
+                 Split revenue clears after each sale. Needs at least two accounts. The minter will receive 100% of split revenue unless splits are added.
+               </em>
+<br/>
+               <input id="name" value="25%" class="inputx2"/> <input id="name" class="inputx" placeholder=" account / wallet address" type="text"  name="name" onChange={this.inputChangedHandler} /><br />
+               <input id="name" value="25%" class="inputx2"/> <input id="name" class="inputx" placeholder=" account / wallet address" type="text"  name="name" onChange={this.inputChangedHandler} /><br />
+               <input id="name" value="25%" class="inputx2"/> <input id="name" class="inputx" placeholder=" account / wallet address" type="text"  name="name" onChange={this.inputChangedHandler} /><br />
+               <input id="name" value="25%" class="inputx2"/> <input id="name" class="inputx" placeholder=" account / wallet address" type="text"  name="name" onChange={this.inputChangedHandler} /><br />
+  <button class="clipboard btncopyx shadowx">Add Address</button>
+
+                <br/><br/><hr/>
+<br/>
+
+
+                </div>
+                <p><button onClick={this.onCreateStamp} className="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                {this.state.pbar && (
+<center><ProgressBar
+  height="80"
+  width="80"
+  ariaLabel="progress-bar-loading"
+  wrapperStyle={{}}
+  wrapperClass="progress-bar-wrapper"
+  borderColor = '#3f433f'
+  barColor = '#ff9900'
+/></center>
+)}
+                <span>MINT NFT Certificate</span></button></p>
+               {this.state.ptx && ( <center>
+                  NFT MIINTED at <a target="_blank" href={this.state.ptxurl}>{this.state.ptx}</a>
+                </center>
+)}
             </div>
 
           </div>
