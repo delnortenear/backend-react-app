@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './serviceWorker';
 import App from './App';
+import Home from './components/Home';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const test = "test";
+
+ReactDOM.render(
+	<div>
+	<App />
+	</div>, document.getElementById('root'));
+
 registerServiceWorker();
+
