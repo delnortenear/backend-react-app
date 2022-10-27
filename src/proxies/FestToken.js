@@ -6,7 +6,11 @@ import { ethers } from "ethers";
 
 class Token {
   constructor() {
+
+
     const {ethereum} = window;
+
+if (window.ethereum) {
     const deploymentKey = Object.keys(FestToken.networks)[0];
     const provider = new ethers.providers.Web3Provider(ethereum, "any");
     const signer = provider.getSigner();      
@@ -21,9 +25,14 @@ class Token {
           FestToken.abi,
           signer
         );
+   } else {
+    this.instance = '';
+   }
   }
 
   getInstance = () => this.instance;
+
+
 }
 
 const token = new Token();
