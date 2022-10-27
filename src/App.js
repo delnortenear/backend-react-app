@@ -81,10 +81,10 @@ return (
               <a href="/" class="brand-logo left"><img id="logox" height="40px" src="https://delnorte.space/images/logo.svg"/> </a>
               <ul class="right hide-on-med-and-down 10" >
                 <div>
-                  <li> <Link to="/stampx"><b>Stamp Mint</b></Link> </li>
+                  <li> <Link to="/stampx"><b>Create Digital Stamp</b></Link> </li>
                   <li> <Link to="/stampcheck"><b>Check Stamp</b></Link> </li>
-                  <li> <Link to="/mint"><b>MINT SC NFT</b></Link> </li>
-                  <li> <Link to="/tickets">My NFT</Link> </li>
+                  <li> <Link to="/mint"><b>Create NFT</b></Link> </li>
+                  <li> <Link to="/tickets">My NFT/Stamps</Link> </li>
                   <li >
                   {currentAccount !== 'undefined' &&  currentAccount !== null && currentAccount !=="" ? 
                           <form className="d-flex">
