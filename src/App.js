@@ -48,10 +48,9 @@ const btnhandler = () => {
 // getbalance function for getting a balance in
 // a right format with help of ethers
 const getbalance = (address) => {
-
+if (window.ethereum) {
   // Requesting balance method
-  window.ethereum
-  .request({
+  window.ethereum.request({
     method: "eth_getBalance",
     params: [address, "latest"]
   })
@@ -59,6 +58,8 @@ const getbalance = (address) => {
     setBalanceAccount(ethers.utils.formatEther(balance).substring(0,3));
     // Setting balance
   });
+
+}
 };
 
 // Function for getting handling all events
@@ -83,9 +84,6 @@ return (
                   <li> <Link to="/stampx"><b>Stamp Mint</b></Link> </li>
                   <li> <Link to="/stampcheck"><b>Check Stamp</b></Link> </li>
                   <li> <Link to="/mint"><b>MINT SC NFT</b></Link> </li>
-                  <li> <Link to="/createFestival">Add Event</Link> </li>
-                  <li> <Link to="/buyTickets">Buy Tickets</Link> </li>
-                  <li> <Link to="/market">Secondary Market</Link> </li>
                   <li> <Link to="/tickets">My NFT</Link> </li>
                   <li >
                   {currentAccount !== 'undefined' &&  currentAccount !== null && currentAccount !=="" ? 
